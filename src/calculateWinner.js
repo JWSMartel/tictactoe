@@ -5,6 +5,8 @@ export function calculateWinner(squares, rows, cols, winLength) {
     //if first is empty return early
     if(!first){return null};
 
+    let line = [start];
+
     for(let i=1;i<winLength;i++){
       const next=start+delta*i;
       //if the next square isn't the same as the first square return early
@@ -12,8 +14,10 @@ export function calculateWinner(squares, rows, cols, winLength) {
 
       //Stop check from wrapping around
       if(delta===1&&Math.floor(next/cols)!==Math.floor(start/cols)){return null;}
+
+      line.push(next);
     }
-    return first;
+    return line;
   }
 
   for(let r=0;r<rows;r++){
@@ -23,27 +27,28 @@ export function calculateWinner(squares, rows, cols, winLength) {
 
       //horizontal check
       if(c+winLength<=cols){
-        const winner = checkLine(thisSq,1);
-        if(winner){return winner;}
+        const line = checkLine(thisSq,1);
+        if(line){return line;}
       }
 
       // vertical check
       if (r + winLength <= rows) {
-        const winner = checkLine(thisSq, cols);
-        if (winner) return winner;
+        const line = checkLine(thisSq, cols);
+        if (line) return line;
       }
 
       // diagonal right check
       if (c + winLength <= cols && r + winLength <= rows) {
-        const winner = checkLine(thisSq, cols + 1);
-        if (winner) return winner;
+        const line = checkLine(thisSq, cols + 1);
+        if (line) return line;
       }
 
       // diagonal left check
       if (c - winLength + 1 >= 0 && r + winLength <= rows) {
-        const winner = checkLine(thisSq, cols - 1);
-        if (winner) return winner;
+        const line = checkLine(thisSq, cols - 1);
+        if (line) return line;
       }
     }
   }
+  return null;
 }
