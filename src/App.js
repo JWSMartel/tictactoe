@@ -71,17 +71,18 @@ export default function Game() {
     }else{
       description='go to game start';
     }
+
     return(
       <li key={move}>
-        <button onClick={() => jumpTo(move)}>{description}</button>
+        {move===currentMove?(<div>You are at move #{move}</div>):<button onClick={() => jumpTo(move)}>{description}</button>}
       </li>
-    )
+    );
   })
 
   return (
     <div className="game">
       <div className="game-board">
-        <Board xIsNext={xIsNext} squares={currentSquares} onPlay={handlePlay} />
+        <Board xIsNext={xIsNext} squares={currentSquares} onPlay={handlePlay}/>
       </div>
       <div className="game-info">
         <ol>{moves}</ol>
