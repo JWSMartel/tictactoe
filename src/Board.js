@@ -14,7 +14,7 @@ export function Board({ xIsNext, squares, onPlay, rows, cols, winLength }) {
     }
     const nextSquares = squares.slice();
     nextSquares[i] = xIsNext ? "X" : "O";
-    onPlay(nextSquares);
+    onPlay(nextSquares, i);
   }
 
   useEffect(()=>{
@@ -24,7 +24,7 @@ export function Board({ xIsNext, squares, onPlay, rows, cols, winLength }) {
     }
   }, [squares,rows,cols,winLength]);
 
-  const isBoardFull = squares.every((square) => square !== null&&square !== "");
+  const isBoardFull = squares.every((square) => square !== null && square !== "");
 
   const winnerLine = calculateWinner(squares, rows, cols, winLength);
   let status = winnerLine ? "Winner: " + (!xIsNext ? "X" : "O") 
